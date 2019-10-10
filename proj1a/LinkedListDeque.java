@@ -77,8 +77,8 @@ public class LinkedListDeque<T> {
         ItemNode i = sentinal.next;
         System.out.printf("%s", i.item);
         while (i.next!=sentinal){
-            System.out.printf(" %s", i.item);
             i = i.next;
+            System.out.printf(" %s", i.item);
         }
         System.out.println();
         return;
@@ -102,13 +102,6 @@ public class LinkedListDeque<T> {
         return getRecur(i.next,index-1);
     }
 
-    public T getRecursive(int index) {
-        if (index<0||index>this.size()) {
-            System.out.printf("Index out of bounds;");
-            return null;
-        } else return getRecur(sentinal.next,index-1);
-    }
-
     public LinkedListDeque(LinkedListDeque other){
         sentinal = new ItemNode(null, null, null);
         sentinal.prev = sentinal;
@@ -118,6 +111,13 @@ public class LinkedListDeque<T> {
         for (int i = 0; i < other.size(); i++){
             addLast((T) other.get(i));
         }
+    }
+
+    public T getRecursive(int index) {
+        if (index<0||index>this.size()) {
+            System.out.printf("Index out of bounds;");
+            return null;
+        } else return getRecur(sentinal.next,index-1);
     }
 
 }
