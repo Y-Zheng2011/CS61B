@@ -71,4 +71,12 @@ public class ArrayDeque<T> {
         return aDeque[head + index];
     }
 
+    public ArrayDeque(ArrayDeque other){
+        aDeque = (T[]) new Object[2*other.size()]; // To obtain a 50% usage ratio
+        head = other.size()/2;
+        tail = head + 1;
+        for (int i = 1; i < other.size(); i++) {
+            addLast((T)other.get(i));
+        }
+    }
 }
