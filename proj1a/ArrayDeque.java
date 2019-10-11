@@ -1,6 +1,6 @@
 public class ArrayDeque<T> {
 
-    public T[] aDeque;
+    private T[] aDeque;
     private int head, tail;
     private int size;
 
@@ -12,7 +12,7 @@ public class ArrayDeque<T> {
     }
 
     public boolean isEmpty(){
-        return head == tail;
+        return head==tail-1;
     }
 
     public void addFirst(T i){
@@ -76,7 +76,21 @@ public class ArrayDeque<T> {
         head = other.size()/2;
         tail = head + 1;
         for (int i = 1; i < other.size(); i++) {
-            addLast((T)other.get(i));
+            this.addLast((T)other.get(i));
         }
+    }
+
+    private void expand(){
+        T[] tmp = (T[]) new Object[2*size];
+        head = size/2; tail = head + 1;
+        for (int i = 1; i < size; i++) {
+            tmp[tail] = this.get(i);
+            tail++;
+        }
+        aDeque = tmp;
+    }
+
+    private void shrink(){
+
     }
 }
