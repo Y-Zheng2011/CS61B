@@ -1,11 +1,11 @@
-public class LinkedListDeque<T> {
+public class LinkedListDeque<Item> implements Deque<Item> {
 
     private class ItemNode{
         public ItemNode prev;
-        public T item;
+        public Item item;
         public ItemNode next;
 
-        public ItemNode(ItemNode p, T i, ItemNode n){
+        public ItemNode(ItemNode p, Item i, ItemNode n){
             prev = p;
             item = i;
             next = n;
@@ -15,7 +15,7 @@ public class LinkedListDeque<T> {
     private ItemNode sentinal;
     private int size;
 
-    public LinkedListDeque(T i){
+    public LinkedListDeque(Item i){
         sentinal = new ItemNode(null, i, null);
         sentinal.next = new ItemNode(sentinal, i, sentinal);
         sentinal.prev = sentinal.next;
@@ -29,46 +29,50 @@ public class LinkedListDeque<T> {
         size = 0;
     }
 
-    public void addFirst(T i){
+    @Override
+    public void addFirst(Item i){
         sentinal.next = new ItemNode(sentinal,i,sentinal.next);
         sentinal.next.next.prev = sentinal.next;
         size += 1;
     }
 
-    public void addLast(T i){
+    @Override
+    public void addLast(Item i){
         sentinal.prev = new ItemNode(sentinal.prev, i, sentinal);
         sentinal.prev.prev.next = sentinal.prev;
         size += 1;
     }
 
-    public boolean isEmpty(){
-        return sentinal.next == sentinal;
-    }
-
-    public T removeFirst(){
+    @Override
+    public Item removeFirst(){
         if (this.isEmpty()) {
             return null;
         }
         ItemNode i = sentinal.next;
         sentinal.next = sentinal.next.next;
         sentinal.next.prev = sentinal;
+        size--;
         return i.item;
     }
 
-    public T removeLast(){
+    @Override
+    public Item removeLast(){
         if (this.isEmpty()) {
             return null;
         }
         ItemNode i = sentinal.prev;
         sentinal.prev = sentinal.prev.prev;
         sentinal.prev.next = sentinal;
+        size--;
         return i.item;
     }
 
+    @Override
     public int size(){
         return this.size;
     }
 
+    @Override
     public void printDeque(){
         if (this.isEmpty()) {
             System.out.printf("\n");
@@ -84,7 +88,8 @@ public class LinkedListDeque<T> {
         return;
     }
 
-    public T get(int index) {
+    @Override
+    public Item get(int index) {
         if (index<0||index>this.size()) {
             System.out.printf("Index out of bounds;");
             return null;
@@ -97,7 +102,7 @@ public class LinkedListDeque<T> {
         return node.item;
     }
 
-    private T getRecur(ItemNode i, int index){
+    private Item getRecur(ItemNode i, int index){
         if (index == 0 ) return i.item;
         return getRecur(i.next,index-1);
     }
@@ -109,11 +114,11 @@ public class LinkedListDeque<T> {
         size = 0;
 
         for (int i = 0; i < other.size(); i++){
-            addLast((T) other.get(i));
+            addLast((Item) other.get(i));
         }
     }
 
-    public T getRecursive(int index) {
+    public Item getRecursive(int index) {
         if (index<0||index>this.size()) {
             System.out.printf("Index out of bounds;");
             return null;

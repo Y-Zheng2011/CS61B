@@ -117,12 +117,12 @@ public class SampleCreature extends Creature {
     public Action chooseAction(Map<Direction, Occupant> neighbors) {
         if (neighbors.get(Direction.TOP).name().equals("empty") && Math.random() < moveProbability) {
             return new Action(Action.ActionType.MOVE, Direction.TOP);
-        } else if (neighbors.get(Direction.BOTTOM).name().equals("empty") && Math.random() < moveProbability) {
-            return new Action(Action.ActionType.MOVE, Direction.BOTTOM);
-        } else if (neighbors.get(Direction.LEFT).name().equals("empty") && Math.random() < moveProbability) {
+        }  else if (neighbors.get(Direction.LEFT).name().equals("empty") && Math.random() < moveProbability) {
             return new Action(Action.ActionType.MOVE, Direction.LEFT);
         } else if (neighbors.get(Direction.RIGHT).name().equals("empty") && Math.random() < moveProbability) {
             return new Action(Action.ActionType.MOVE, Direction.RIGHT);
+        } else if (neighbors.get(Direction.BOTTOM).name().equals("empty") && Math.random() < moveProbability) {
+            return new Action(Action.ActionType.MOVE, Direction.BOTTOM);
         } else {
             return new Action(Action.ActionType.STAY);
         }

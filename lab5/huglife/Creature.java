@@ -54,6 +54,6 @@ public abstract class Creature extends Occupant {
      * Returns the current energy.
      */
     public double energy() {
-        return energy;
+        return this.energy;
     }
 }
