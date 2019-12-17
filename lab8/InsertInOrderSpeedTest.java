@@ -53,7 +53,7 @@ public class InsertInOrderSpeedTest {
         String s = "cat";
         for (int i = 0; i < N; i++) {
             s = StringUtils.nextString(s);
-            map61B.put(s, new Integer(i));
+            map61B.put(s, i);
         }
         return sw.elapsedTime();
     }
@@ -66,7 +66,7 @@ public class InsertInOrderSpeedTest {
         String s = "cat";
         for (int i = 0; i < N; i++) {
             s = StringUtils.nextString(s);
-            ts.put(s, new Integer(i));
+            ts.put(s, i);
         }
         return sw.elapsedTime();
     }
