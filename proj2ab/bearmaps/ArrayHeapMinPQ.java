@@ -144,7 +144,8 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
     private void swimUp(int k) {
         int p = parent(k);
         if ((p > 0) && (getPriority(p) > getPriority(k))) {
-                swap(k, p);
+            swap(k, p);
+            swimUp(p);
         }
     }
 

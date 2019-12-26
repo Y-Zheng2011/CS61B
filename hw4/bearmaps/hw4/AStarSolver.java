@@ -77,7 +77,7 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex> {
                 if (fringe.contains(to)) {
                     fringe.changePriority(to, tmp);
                 } else {
-                    fringe.add(edge.to(), tmp);
+                    fringe.add(to, tmp);
                     edgeTo.put(to, curr);
                 }
             }
