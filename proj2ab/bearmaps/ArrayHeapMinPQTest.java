@@ -8,24 +8,14 @@ public class ArrayHeapMinPQTest {
     @Test
     public void testGetRemoveSmallest() {
         ArrayHeapMinPQ<Integer> test = new ArrayHeapMinPQ<>();
-        test.add(0, 1);
-        test.removeSmallest();
-        test.print();
-        test.add(1, 5);
-        test.add(2, 16);
-        test.removeSmallest();
-        test.print();
-        test.add(3, 15);
-        test.add(4, 10);
-        test.add(5, 100);
-        test.print();
-        assertEquals(Integer.valueOf(4), test.getSmallest());
-        assertEquals(Integer.valueOf(4), test.removeSmallest());
-        test.add(6, 2);
-        test.print();
-        assertEquals(Integer.valueOf(6), test.getSmallest());
-        assertEquals(Integer.valueOf(6), test.removeSmallest());
-        test.print();
+        test.add(16, 1);
+        test.add(18, 1);
+        test.add(8, 5);
+        test.add(289, 10);
+        test.add(34, 5);
+        assertEquals(Integer.valueOf(16), test.getSmallest());
+        assertEquals(Integer.valueOf(16), test.removeSmallest());
+        assertEquals(Integer.valueOf(18), test.getSmallest());
     }
 
     @Test
@@ -48,9 +38,7 @@ public class ArrayHeapMinPQTest {
         test.add("b", 2);
         test.add("c", 3);
         test.add("d", 1.5);
-        test.print();
         test.changePriority("d", 0.5);
-        test.print();
         assertEquals("d", test.removeSmallest());
     }
 

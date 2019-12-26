@@ -94,29 +94,6 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
         }
     }
 
-    public void print() {
-        int depth = ((int) (Math.log(minHeap.length) / Math.log(2)));
-        int level = 0;
-        int itemsUntilNext = (int) Math.pow(2, level);
-        for (int j = 0; j < depth; j++) {
-            System.out.print(" ");
-        }
-
-        for (int i = 1; i <= size; i++) {
-            System.out.print(minHeap[i].item + " ");
-            if (i == itemsUntilNext) {
-                System.out.println();
-                level++;
-                itemsUntilNext += Math.pow(2, level);
-                depth--;
-                for (int j = 0; j < depth; j++) {
-                    System.out.print(" ");
-                }
-            }
-        }
-        System.out.println();
-    }
-
     @SuppressWarnings("unchecked")
     private void resize() {
         heapSize = heapSize * 2;
@@ -160,11 +137,11 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
     private void twoChildren(int k) {
         int left = leftChild(k), right = rightChild(k);
         if (getPriority(left) > getPriority(right)) {
-            if (getPriority(right) > getPriority(k)) {
+            if (getPriority(right) < getPriority(k)) {
                 swap(right, k);
                 swimDown(right);
             }
-        } else if (getPriority(left) > getPriority(k)) {
+        } else if (getPriority(left) < getPriority(k)) {
             swap(left, k);
             swimDown(left);
         }
