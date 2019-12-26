@@ -7,13 +7,23 @@ public class ArrayHeapMinPQTest {
 
     @Test
     public void testGetRemoveSmallest() {
-        ArrayHeapMinPQ<String> test = new ArrayHeapMinPQ<>();
-        test.add("a", 1);
-        test.add("b", 2);
-        test.add("c", 3);
+        ArrayHeapMinPQ<Integer> test = new ArrayHeapMinPQ<>();
+        test.add(0, 1);
+        test.removeSmallest();
         test.print();
-        assertEquals("a", test.getSmallest());
-        assertEquals("a", test.removeSmallest());
+        test.add(1, 5);
+        test.add(2, 16);
+        test.removeSmallest();
+        test.print();
+        test.add(3, 15);
+        test.add(4, 10);
+        test.print();
+        assertEquals(Integer.valueOf(4), test.getSmallest());
+        assertEquals(Integer.valueOf(4), test.removeSmallest());
+        test.add(6, 2);
+        test.print();
+        assertEquals(Integer.valueOf(6), test.getSmallest());
+        assertEquals(Integer.valueOf(6), test.removeSmallest());
         test.print();
     }
 
