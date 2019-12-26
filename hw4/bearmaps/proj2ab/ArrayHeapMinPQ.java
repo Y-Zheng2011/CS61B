@@ -137,11 +137,11 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
     private void twoChildren(int k) {
         int left = leftChild(k), right = rightChild(k);
         if (getPriority(left) > getPriority(right)) {
-            if (getPriority(right) > getPriority(k)) {
+            if (getPriority(right) < getPriority(k)) {
                 swap(right, k);
                 swimDown(right);
             }
-        } else if (getPriority(left) > getPriority(k)) {
+        } else if (getPriority(left) < getPriority(k)) {
             swap(left, k);
             swimDown(left);
         }
