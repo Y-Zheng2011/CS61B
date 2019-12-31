@@ -1,6 +1,7 @@
 package bearmaps.hw4;
 
 import bearmaps.proj2ab.ArrayHeapMinPQ;
+import bearmaps.proj2ab.DoubleMapPQ;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -59,9 +60,9 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex> {
                 break;
             }
             count += 1;
-            Vertex fresh = fringe.removeSmallest();
-            marked.put(fresh, true);
-            relax(fresh);
+            Vertex p = fringe.removeSmallest();
+            marked.put(p, true);
+            relax(p);
         }
         outcome = SolverOutcome.SOLVED;
     }
@@ -78,8 +79,8 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex> {
                     fringe.changePriority(to, tmp);
                 } else {
                     fringe.add(to, tmp);
-                    edgeTo.put(to, curr);
                 }
+                edgeTo.put(to, curr);
             }
         }
     }

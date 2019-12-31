@@ -87,7 +87,7 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
         }
         int index = itemMap.get(item), p = parent(index);
         setPriority(index, priority);
-        if (getPriority(index) > getPriority(p)) {
+        if (p > 0 && getPriority(index) > getPriority(p)) {
             swimDown(index);
         } else {
             swimUp(index);
