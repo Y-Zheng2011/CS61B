@@ -84,13 +84,51 @@ public class RasterAPIHandler extends APIRouteHandler<Map<String, Double>, Map<S
      */
     @Override
     public Map<String, Object> processRequest(Map<String, Double> requestParams, Response response) {
-        //System.out.println("yo, wanna know the parameters given by the web browser? They are:");
-        //System.out.println(requestParams);
         Map<String, Object> results = new HashMap<>();
-        System.out.println("Since you haven't implemented RasterAPIHandler.processRequest, nothing is displayed in "
-                + "your browser.");
+        //results.put("query_success", false);
+        double ul_lon, ul_lat, lr_lon, lr_lat, w, h;
+        ul_lon = requestParams.get("ullon");
+        ul_lat = requestParams.get("ullat");
+        lr_lon = requestParams.get("lrlon");
+        lr_lat = requestParams.get("lrlat");
+        w = requestParams.get("w");
+        h = requestParams.get("h");
+
+        double DPP = (lr_lon - ul_lon) / w, rootDPP = (Constants.ROOT_LRLON - Constants.ROOT_ULLON) / Constants.TILE_SIZE;
+        int dep;
+/*        while (DPP < rootDPP) {
+            dep++;
+            rootDPP = rootDPP / 2;
+        }*/
+        dep = (int) (Math.ceil(Math.log(rootDPP / DPP) / Math.log(2)));
+        if (dep > 7) {
+            dep = 7;
+        }
+        results.put("depth", dep);
+
+        int k = (int) Math.pow(2, dep);
+        double tlon = (Constants.ROOT_LRLON - Constants.ROOT_ULLON) / k;
+        double tlat = (Constants.ROOT_ULLAT - Constants.ROOT_LRLAT) / k;
+        int x1 = (int) Math.floor((ul_lon-Constants.ROOT_ULLON)/tlon);
+        int x2 = (int) Math.ceil((lr_lon-Constants.ROOT_ULLON)/tlon);
+        int y1 = (int) Math.floor((Constants.ROOT_ULLAT-ul_lat)/tlat);
+        int y2 = (int) Math.ceil((Constants.ROOT_ULLAT-lr_lat)/tlat);
+        results.put("raster_ul_lon", x1 * tlon + Constants.ROOT_ULLON);
+        results.put("raster_ul_lat", Constants.ROOT_ULLAT - y1 * tlat);
+        results.put("raster_lr_lon", x2 * tlon + Constants.ROOT_ULLON);
+        results.put("raster_lr_lat", Constants.ROOT_ULLAT - y2 * tlat);
+        results.put("query_success", true);
+
+        String[][] render_grid = new String[y2 - y1][x2 - x1];
+        for (int j = y1; j < y2; j++) {
+            for (int i = x1; i < x2; i++) {
+                render_grid[j-y1][i-x1] = "d" + dep + "_x" + i + "_y" + j + ".png";
+            }
+        }
+        results.put("render_grid", render_grid);
         return results;
     }
+
 
     @Override
     protected Object buildJsonResponse(Map<String, Object> result) {
